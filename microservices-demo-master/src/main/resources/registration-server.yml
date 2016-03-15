@@ -1,0 +1,26 @@
+# Configure this Discovery Server
+eureka:
+  instance:
+    hostname: localhost
+  client:  # Not a client, don't register with yourself
+    registerWithEureka: false
+    fetchRegistry: true
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    enableSelfPreservation: false
+      
+server:
+  port: 1111   # HTTP (Tomcat) port
+
+# Max number of retries on the same server (excluding the first try)
+ribbon:
+  maxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  ConnectTimeout: 3000
+  ReadTimeout: 5000
+
+
+# Discovery Server Dashboard uses FreeMarker.  Don't want Thymeleaf templates
+spring:
+  thymeleaf:
+    enabled: false     # Disable Thymeleaf 

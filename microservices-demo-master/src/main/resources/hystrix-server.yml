@@ -1,0 +1,13 @@
+---
+server:
+  port: 4444
+  
+# Spring properties
+spring:
+  application:
+     name: hystrix-service
+     
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
