@@ -1,5 +1,6 @@
 package io.pivotal.microservices.accounts;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+
+import io.pivotal.microservices.services.accounts.AccountsServer;
 
 /**
  * A RESTFul controller for accessing account information.
@@ -44,7 +48,11 @@ public class AccountsController {
 	 * @throws AccountNotFoundException
 	 *             If the number is not recognised.
 	 */
-	@HystrixCommand
+	@HystrixCommand(commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "30"),
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "1000"),
+            
+        })
 	@RequestMapping("/accounts/{accountNumber}")
 	public Account byNumber(@PathVariable("accountNumber") String accountNumber) {
 

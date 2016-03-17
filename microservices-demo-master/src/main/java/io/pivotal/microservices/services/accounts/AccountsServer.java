@@ -48,7 +48,7 @@ public class AccountsServer {
 		// Tell server to look for accounts-server.properties or
 		// accounts-server.yml
 		System.setProperty("spring.config.name", "accounts-server");
-
+		System.setProperty("server.port", args[0]);
 		SpringApplication.run(AccountsServer.class, args);
 	}
 }
